@@ -1,3 +1,4 @@
+# Check if the update obeys the specified rule
 def checkrule(rule, update):
     retval = True
 
@@ -6,6 +7,7 @@ def checkrule(rule, update):
 
     return  retval
 
+# Swaps the pages in the update according to the rule
 def swap(rule, update):
     i = update.index(rule[0])
     j = update.index(rule[1])
@@ -14,6 +16,7 @@ def swap(rule, update):
     update[j] = update[i]
     update[i] = temp
 
+# Returns the middle element in a list
 def getmid(list):
     return list[int((len(list) - 1) / 2)]
 
@@ -34,6 +37,7 @@ with open("input.txt") as input:
     correct_updates = []
     wrong_updates = []
 
+    # Parse input
     for line in input:
         line = line.replace('\n','')
         if '|' in line:
@@ -51,6 +55,7 @@ with open("input.txt") as input:
         for j in range(len(updates[i])):
             updates[i][j] = int(updates[i][j])
     
+    # Convert from str to int elements
     for u in updates:
         if iter(u, rules, checkrule):
             correct_updates.append(u)
@@ -61,8 +66,7 @@ with open("input.txt") as input:
             while (needscheck):
                 needscheck = False
                 for r in rules:
-                    retval = checkrule(r, x)
-                    if retval is False:
+                    if checkrule(r, x) is False:
                         swap(r, x)
                         needscheck = True
                         break
@@ -78,5 +82,5 @@ with open("input.txt") as input:
     for u in wrong_updates:
         sum2 += getmid(u)
 
-    print("Sum:", sum)
-    print("Sum2:", sum2)
+    print("Sum:", sum) # Part 1
+    print("Sum2:", sum2) # Part 2
